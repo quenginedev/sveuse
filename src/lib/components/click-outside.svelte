@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import { onClickOutside } from 'svelteuse/action';
+	import { useClickOutside } from 'svelteuse/action';
 
 	let element: HTMLElement;
 	const dispatch = createEventDispatcher();
 	const handleOnTrigger = () => dispatch('trigger');
 
 	onMount(() => {
-		onClickOutside(element);
+		useClickOutside(element);
 		element.addEventListener('trigger', handleOnTrigger);
 	});
 

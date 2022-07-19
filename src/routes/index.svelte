@@ -1,10 +1,11 @@
 <script>
-	import { onClickOutside } from 'svelteuse/action';
+	import { useClickOutside } from 'svelteuse/action';
 	import { ClickOutside } from 'svelteuse/components';
 </script>
 
-<h1 use:onClickOutside >Welcome to SvelteKit</h1>
+<h1 use:useClickOutside >Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<img src="http://asdasd"/>
 <ClickOutside
 	on:trigger={() => {
 		console.log('hello');

@@ -1,14 +1,16 @@
 import type { Subscriber } from 'svelte/store'
+import { useEventListener } from '../hooks'
+
 type MousePositionCallback = (position: {
   x: number,
   y: number
 }) => void
 
-type OnMouseMove = (el?: Element) => {
+type UseMouseMove = (el?: Element) => {
   subscribe: Subscriber<MousePositionCallback>
 }
 
-const onMouseMove: OnMouseMove = (el) => ({
+const onMouseMove: UseMouseMove = (el) => ({
   subscribe: fn => {
     if (!el) el = document.body
     fn({ x: 0, y: 0 })
@@ -18,10 +20,8 @@ const onMouseMove: OnMouseMove = (el) => ({
         y: event.clientY
       })
     }
-    document.addEventListener('mousemove', move)
-    return () => {
-      document.removeEventListener('mousemove', move)
-    }
+    const destroy = useEventListener(document, 'mousemove', move as EventListenerOrEventListenerObject)
+    return { destroy }
   }
 })
 
