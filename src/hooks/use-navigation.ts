@@ -17,8 +17,12 @@ const paths: Writable<Navigation[]> = writable([
 const searchQuery = writable('')
 
 const searchedPaths = derived(searchQuery, query => {
+  query = query.toLowerCase()
   const pathsValues = get(paths)
-  return pathsValues.filter(path => path.name.includes(query) || path.route.includes(query) || path.type.includes(query))
+  return pathsValues.reduce<Navigation[]>((acc, path) => {
+    if (path.name.toLowerCase().includes(query)) {acc.push(path)}
+    return acc
+  }, [])
 })
 
 const clearSearchQuery = () => {

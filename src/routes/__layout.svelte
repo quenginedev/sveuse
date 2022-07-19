@@ -3,7 +3,7 @@
 	import useNavigation from "../hooks/use-navigation";
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { get } from "svelte/store";
+
 	const { searchedPaths, searchQuery, clearSearchQuery } = useNavigation()
 </script>
 

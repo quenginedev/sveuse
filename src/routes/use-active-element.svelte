@@ -2,14 +2,15 @@
 	import { useActiveElement } from "svelteuse/hooks";
 
 	let activeElement = useActiveElement()
-	let tab = 'preview';
+	let tab = 'hook';
 </script>
 <div class="p-5 flex flex-col gap-5">
   <h1 class="font-bold text-2xl">useActiveElement</h1>
   <div class="tabs tabs-boxed">
     <button class="tab" class:tab-active={tab === 'preview'} on:click={()=>tab = 'preview'}>Preview</button>
     <button class="tab" class:tab-active={tab === 'hook'} on:click={()=>tab = 'hook'}>Hook Example</button>
-    <button class="tab" class:tab-active={tab === 'component'} on:click={()=>tab = 'component'}>Component Example</button>
+    <button class="tab" class:tab-active={tab === 'component'} on:click={()=>tab = 'component'}>Component Example
+    </button>
   </div>
   <div class="mockup-code">
     <!-- language: javascript -->
@@ -27,8 +28,8 @@
       </div>
     {:else if tab === 'hook'}
       <pre>
-      <code>
-{`
+        <code>
+          {`
   <script>
     import { useActiveElement } from "svelteuse/hooks";
     let activeElement = useActiveElement()
@@ -45,7 +46,7 @@
     {/each}
   </div>
   <p>current active element: {$activeElement?.value}</p>
-`}
+        `}
       </code>
     </pre>
     {/if}
