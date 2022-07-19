@@ -1,11 +1,13 @@
 <script>
 	import "../app.css";
 	import useNavigation from "../hooks/use-navigation";
-
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { get } from "svelte/store";
 	const { searchedPaths, searchQuery, clearSearchQuery } = useNavigation()
 </script>
 
-<div class="drawer drawer-mobile">
+<div class="drawer drawer-mobile" data-theme="coffee">
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle"/>
   <div class="drawer-content flex flex-col">
     <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Menu</label>
@@ -32,13 +34,14 @@
           {/each}
         </ul>
       </div>
-      <div class="">
+      <div class="flex flex-col gap-3">
         <h2 class="font-bold">Hooks</h2>
-        <ul>
-          {#each $searchedPaths.filter(path => path.type === 'hook') as { route, name }}
-            <li class="font-semibold"><a href={route}>{name}</a></li>
-          {/each}
-        </ul>
+        {#each $searchedPaths.filter(path => path.type === 'hook') as { route, name }}
+          <button
+              class="btn w-full capitalize btn-primary"
+              class:btn-primary={$page.url.pathname === route}
+              on:click={() => goto(route)}>{name}</button>
+        {/each}
       </div>
     </div>
 
