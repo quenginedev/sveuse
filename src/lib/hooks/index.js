@@ -8,3 +8,4 @@ export { useTimeoutFn } from './useTimeoutFn';
 export { useWindowSize } from './useWindowSize';
 export { useWindowScroll } from './useWindowScroll';
 export { useWindowResize } from './useWindowResize';
+//# sourceMappingURL=index.js.map

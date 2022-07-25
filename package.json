@@ -1,5 +1,5 @@
 {
-	"name": "svelteuse",
+	"name": "svelte-use",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",

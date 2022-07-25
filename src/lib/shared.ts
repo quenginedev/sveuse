@@ -1,3 +1,4 @@
 import { browser } from '$app/env'
 
-export const isClient = browser;
+export const defaultWindow =  browser ? window : null
+export type Unsubscribe = () => void

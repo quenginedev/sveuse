@@ -1,1 +1,1 @@
-export { default as ClickOutside } from './click-outside.svelte'
+export {default as WindowSize} from './WindowSize.svelte';
