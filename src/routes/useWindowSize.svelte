@@ -43,9 +43,7 @@
             {`
 <script>
     import {onWindowSize} from "svelte-use";
-    const handleSize = (size) => {
-        console.log({size})
-    }
+    const handleSize = console.log
 </script>
 
 <div use:onWindowSize={{onResize: handleSize}}></div>

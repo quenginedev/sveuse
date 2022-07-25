@@ -1,31 +1,34 @@
 import useEventListener from "./useEventListener";
 import type {Unsubscribe} from "../shared";
 import {onDestroy, onMount} from "svelte";
+import {writable} from "svelte/store";
+import type {Writable} from "svelte/store";
 
-type UseActiveElement = (options: {
-    element: Element,
-    handler: (activeElement: HTMLElement) => void
-}) => void;
+type UseActiveElement = (element?: Element) => Writable<HTMLElement | null>;
 
-export const useActiveElement: UseActiveElement = ({element, handler}) => {
+export const useActiveElement: UseActiveElement = (element) => {
+    const activeElement = writable<HTMLElement | null>(null);
     let unsubscribe: Unsubscribe
 
-    const handleActiveElement = (event: Event) => {
-        if (element.contains(event.target as Node)) return;
-        handler(event.target as HTMLElement);
+    const handleActiveElement = () => {
+        if(element && !element.contains(document.activeElement)) return
+        activeElement.set(document.activeElement as HTMLElement);
     }
 
     onMount(() => {
+        handleActiveElement();
         unsubscribe = useEventListener({
-            event: 'focus',
+            event: 'focusin',
             handler: handleActiveElement,
-            element
+            element: document.body
         })
     })
 
     onDestroy(() => {
-        unsubscribe()
+        unsubscribe && unsubscribe()
     })
+
+    return activeElement
 }
 
 export default useActiveElement;
