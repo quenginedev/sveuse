@@ -10,10 +10,10 @@
     "sourceMap": true,
     "strict": true,
     "paths": {
-      "svelte-use": [
+      "sveuse": [
         "src/lib/index.ts"
       ],
-      "svelte-use/*": [
+      "sveuse/*": [
         "src/lib/*"
       ],
       "$lib": [

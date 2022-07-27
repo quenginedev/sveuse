@@ -3,12 +3,12 @@ import {useWindowSize} from "../hooks";
 import {derived, get} from "svelte/store";
 import {onDestroy} from "svelte";
 
-export const onWindowSize: Action = (node, {onResize}) => {
+export const onWindowSize: Action = (node, {onResize} = {}) => {
     const {width, height} = useWindowSize();
     const size = derived([width, height], ([w, h]) => ({w, h}));
-    if (onResize) {
-        const unsubscribe = size.subscribe(onResize);
-        onDestroy(unsubscribe);
-    }
-    node.dispatchEvent(new CustomEvent('window-size', {detail: get(size)}));
+    const unsubscribe = size.subscribe((state)=> {
+        if (onResize) onResize(state)
+        node.dispatchEvent(new CustomEvent('resize', {detail: state}))
+    })
+    onDestroy(unsubscribe);
 }

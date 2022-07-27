@@ -1,11 +1,12 @@
 <script>
     import "../app.css";
-    import {page} from '$app/stores';
-    import {goto} from '$app/navigation';
     import {useNavigation} from "../utils/hooks/useNavigation";
 
-    const routes = []
-    const {hooks} = useNavigation()
+    const {
+        currentPath,
+        hooks,
+        navigateTo
+    } = useNavigation()
 </script>
 
 <div class="drawer drawer-mobile" data-theme="coffee">
@@ -21,7 +22,7 @@
     <div class="drawer-side ">
         <label for="my-drawer-2" class="drawer-overlay"></label>
         <div class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content gap-5 bg-base-300 rounded-r-2xl">
-            <h1 class="font-bold text-3xl">SvelteUse</h1>
+            <h1 class="font-bold text-3xl">Sveuse</h1>
             <div class="input w-full max-w-xs flex flex-row items-center">
                 <input type="text" placeholder="Search"
                        class="flex-grow bg-transparent focus:outline-none"/>
@@ -31,8 +32,8 @@
                 {#each hooks as {path, name}}
                     <button
                             class="btn w-full capitalize btn-primary"
-                            class:btn-primary={$page.url.pathname === path}
-                            on:click={() => goto(path)}>{name}</button>
+                            class:btn-primary={$currentPath === path}
+                            on:click={navigateTo(path)}>{name}</button>
                 {/each}
             </div>
         </div>

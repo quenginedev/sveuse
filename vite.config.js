@@ -6,7 +6,7 @@ const config = {
 	plugins: [sveltekit()],
 	resolve: {
 		alias: {
-			'svelteuse': resolve('src/lib'),
+			'sveuse': resolve('src/lib'),
 		}
 	}
 };
