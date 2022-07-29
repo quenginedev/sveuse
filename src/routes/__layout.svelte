@@ -1,6 +1,8 @@
 <script>
     import "../app.css";
     import {useNavigation} from "../utils/hooks/useNavigation";
+    import {page} from '$app/stores'
+    import {fade} from "svelte/transition";
 
     const {
         currentPath,
@@ -14,15 +16,17 @@
     <div class="drawer-content flex flex-col">
         <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Menu</label>
         <div class="flex justify-center">
-            <div class="w-full max-w-screen-lg">
-                <slot/>
-            </div>
+            {#key $page.url.pathname}
+                <div in:fade={{delay: 200}} class="w-full max-w-screen-lg">
+                    <slot/>
+                </div>
+            {/key}
         </div>
     </div>
     <div class="drawer-side ">
         <label for="my-drawer-2" class="drawer-overlay"></label>
         <div class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content gap-5 bg-base-300 rounded-r-2xl">
-            <h1 class="font-bold text-3xl">Sveuse</h1>
+            <a href="/" class="font-bold text-3xl">Sveuse</a>
             <div class="input w-full max-w-xs flex flex-row items-center">
                 <input type="text" placeholder="Search"
                        class="flex-grow bg-transparent focus:outline-none"/>
@@ -37,6 +41,5 @@
                 {/each}
             </div>
         </div>
-
     </div>
 </div>
