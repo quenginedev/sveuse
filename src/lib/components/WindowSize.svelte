@@ -3,6 +3,4 @@
     const {width, height} = useWindowSize()
 </script>
 
-<div class="">
-    <slot width={$width} height={$height}></slot>
-</div>
+<slot width={$width} height={$height}></slot>

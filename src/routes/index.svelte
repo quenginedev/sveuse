@@ -1,7 +1,11 @@
+<script>
+    import { fade } from 'svelte/transition'
+</script>
+
 <div class="mt-12 gap-10 flex flex-col space-y-2.5">
     <div class="">
         <h1 class="text-5xl font-bold">Sveuse</h1>
-        <p>A collection of essential hooks, components and actions</p>
+        <p>A collection of truly essential reactive hooks, components and actions</p>
     </div>
     <div class=" space-y-1">
         <h1 class="text-3xl font-bold">Installation (not yet published)</h1>
