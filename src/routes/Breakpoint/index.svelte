@@ -1,7 +1,8 @@
 <script>
-    import {useBreakpoint} from "$lib";
+    import {useBreakpoint, Breakpoint} from "$lib";
     import Example from "../../utils/components/Example.svelte";
     import Hook from './_hook.svelte'
+    import Component from './_component.svelte'
     const breakpoints = {xs: 320, sm: 576, md: 768, lg: 992, xl: 1200}
     const {greater} = useBreakpoint(breakpoints)
     const fields = Object.keys(breakpoints)
@@ -22,5 +23,5 @@
         <div>xl:{$xl}</div>
     </div>
     <Hook slot="hook"></Hook>
+    <Component slot="component"/>
 </Example>
-

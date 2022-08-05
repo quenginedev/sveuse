@@ -1,6 +1,6 @@
 import type {Action} from "svelte/action";
 import {useWindowSize} from "../hooks";
-import {derived, get} from "svelte/store";
+import {derived} from "svelte/store";
 import {onDestroy} from "svelte";
 
 export const onWindowSize: Action = (node, {onResize} = {}) => {
