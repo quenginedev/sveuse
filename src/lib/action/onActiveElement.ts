@@ -7,6 +7,6 @@ export const onActiveElement: Action = (node, {onActive}) => {
     const unsubscribe = activeElement.subscribe(element => {
         if (onActive) onActive(element)
         node.dispatchEvent(new CustomEvent('active', {detail: element}))
-    });
+    })
     onDestroy(unsubscribe);
 }

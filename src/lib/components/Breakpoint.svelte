@@ -1,40 +1,48 @@
 <script lang="ts">
     import {useBreakpoint} from "../hooks";
     import type {Breakpoints} from "../hooks/useBreakpoint";
-    import type {Unsubscribe} from "../shared";
-    import {createEventDispatcher, onDestroy} from 'svelte'
-
-    const dispatch = createEventDispatcher()
+    import {derived, get} from "svelte/store";
 
     export let breakpoints: Breakpoints
     export let gt: Array<string> = []
     export let lt: Array<string> = []
     export let btw: Array<[string, string]> = []
-    const subscribers: Array<Unsubscribe> = []
-    const {between, greater, smaller} = useBreakpoint(breakpoints);
-    for (let point of gt) {
-        const store = greater(point)
-        subscribers.push(store.subscribe(value => {
-            dispatch(`gt-${point}`, value)
-        }))
-    }
-    for (let point of lt) {
-        const store = smaller(point)
-        subscribers.push(store.subscribe(value => {
-            dispatch(`lt-${point}`, value)
-        }))
+    const {greater, smaller, between} = useBreakpoint(breakpoints)
+    const pointsMap = {
+        gt: [],
+        lt: [],
+        btw: []
     }
 
-    for (let [point1, point2] of btw) {
-        const store = between(point1, point2)
-        subscribers.push(store.subscribe(value => {
-            dispatch(`btw-${point1}-${point2}`, value)
-        }))
+    for (let name of gt) {
+        pointsMap.gt.push({
+            name,
+            store: greater(name)
+        })
     }
 
-    onDestroy(() => {
-        subscribers.forEach(unsubscribe => unsubscribe())
-    })
+    for (let name of lt) {
+        pointsMap.lt.push({
+            name,
+            store: smaller(name)
+        })
+    }
+
+    for (let [name1, name2] of btw) {
+        pointsMap.btw.push({
+            name: [name1, name2],
+            store: between(name1, name2)
+        })
+    }
+
+    const gtStore = derived(
+        pointsMap.gt.map(({store}) => store),
+        (storeValue) => storeValue.reduce((gtStore, value, index) => {
+            gtStore[gt[index]] = value
+            return gtStore
+        }, {})
+    )
+    console.log({gtStore})
 </script>
 
-<slot/>
+<slot gt={$gtStore}/>
